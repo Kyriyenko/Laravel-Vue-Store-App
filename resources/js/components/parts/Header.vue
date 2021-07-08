@@ -1,0 +1,213 @@
+<template>
+<div>
+        <div class="container mt-1 mb-1">
+            <header>
+                <div class="row">
+                    <div class="col header-title">
+                        <p class="mb-0">DAYS A WEEK FROM 9:00 AM TO 7:00 PM</p>
+                    </div>
+                    <div class="col header-nav">
+                        <nav class="nav">
+                                <a class="nav-link" href="#">My Account</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Language
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                         Currency
+                                     </a>
+                                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink1">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                     </ul>
+                                </li>
+                                <span v-if="role!=='guest'" v-on:click="logOutUser" class="logout-block">
+                                   <i class="fas fa-sign-out-alt"></i>
+                                </span>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <hr class="dropdown-divider">
+        <div class="container mt-3">
+            <div class="row look-row">
+                <div class="col-md-4 center-block mt-2">
+                    <div class="main-search mt_40 search-col">
+                        <input id="search-input" name="search" value="" placeholder="Search" class="form-control input-lg search-input" autocomplete="off" type="text">
+                        <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-lg"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4 center-block mt-2">
+                    <div class="center-block-text">
+                        <div class="maine-text">DARK<span style="color:#fa4251">LOOK</span></div>
+                        <div style="color: #5e5e5e">ONLINE SHOPPING STORE</div>
+                    </div>
+                </div>
+                <div class="col-md-4 center-block mt-2">
+                    <i class="fas fa-shopping-basket"></i>
+                    <div id="cart" class="btn-group btn-block mtb_40">
+                        <button type="button" class="btn" data-target="#cart-dropdown" data-toggle="collapse" aria-expanded="true"><span id="shippingcart">Shopping cart</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5 container-navigation mb-5">
+            <div class="nav-scroller py-1 mb-2">
+                <nav class="nav d-flex justify-content-between">
+                    <router-link to="/" class="p-2 link-secondary rout-link">home</router-link>
+                    <router-link to="/" class="p-2 link-secondary rout-link">collection</router-link>
+                    <router-link to="/" class="p-2 link-secondary rout-link">shop</router-link>
+                    <router-link to="/aboutUs" class="p-2 link-secondary rout-link">About us</router-link>
+                    <router-link to="/contactUs" class="p-2 link-secondary rout-link">Contact us</router-link>
+                    <router-link v-if="role==='guest'" to="/login" class="p-2 link-secondary rout-link">Login</router-link>
+                    <router-link v-if="role==='guest'" to="/registration" class="p-2 link-secondary rout-link">Registration</router-link>
+                    <router-link v-if="role==='admin'" to="/adminPanel" class="p-2 link-secondary rout-link">Admin Panel</router-link>
+                </nav>
+            </div>
+        </div>
+</div>
+</template>
+
+<script>
+export default {
+    name: "Header",
+    data(){
+      return{
+        role:'guest'
+      }
+    },
+   created() {
+        this.getUserStatus()
+   },
+    methods:{
+        logOutUser(){
+            axios
+                .get('/user/logout')
+                .then(response => {
+                    if(response.data.status){
+                        window.location.replace('/');
+                    }
+                })
+                .catch(error => console.log(error))
+                .finally()
+        },
+        getUserStatus(){
+            axios
+                .get('/user/status')
+                .then(response => {
+                    console.log(response.data.toString())
+                    this.role=response.data.toString()
+                })
+                .catch(error => console.log(error))
+                .finally()
+        }
+    }
+}
+</script>
+
+<style scoped>
+*{
+    color: #ffffff;
+}
+
+.fa-sign-out-alt{
+    font-size: xx-large;
+}
+
+.header-nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.look-row{
+    justify-content: space-around;
+}
+
+.logout-block
+{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-navigation{
+    background-color: #424242;
+}
+
+.nav-scroller{
+    display: flex;
+    justify-content: center;
+}
+
+.link-secondary{
+    margin-right: 30px;
+}
+
+.header-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.center-block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row{
+    display: flex;
+    justify-content: center;
+}
+
+.form-control{
+    width: 200px;
+    background-color: #010302;
+    color: white;
+}
+
+.center-block-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.rout-link{
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.col{
+    display: flex;
+    justify-content: center;
+}
+
+.search-col{
+    display: flex;
+
+}
+
+.search-input{
+    height: 40px;
+}
+.maine-text{
+    font-size: xxx-large;
+    font-weight: 900;
+}
+
+
+</style>
