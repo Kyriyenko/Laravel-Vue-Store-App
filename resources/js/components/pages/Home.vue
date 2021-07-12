@@ -47,9 +47,6 @@
                 </div>
             </div>
         </div>
-        <div class="mt-3 featured">
-            <h2>Featured Products</h2>
-        </div>
         <div class="mt-5">
             <v-fashion></v-fashion>
         </div>
@@ -85,10 +82,6 @@ img{
 i{
     margin-right: 10px;
     font-size: xx-large;
-}
-
-.featured{
-    border-bottom: 2px solid #424242;
 }
 
 </style>

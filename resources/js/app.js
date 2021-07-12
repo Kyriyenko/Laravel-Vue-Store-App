@@ -13,6 +13,7 @@ import AdminNews from './components/adminParts/News'
 import FashionBanner from './components/ banners/Fashion'
 import Banner from "./components/ banners/Banner"
 import AdminBanner from './components/adminParts/Banner'
+import AdminProducts from './components/adminParts/Products'
 
 Vue.component('v-header',Header)
 Vue.component('v-footer',Footer)
@@ -23,6 +24,7 @@ Vue.component('v-adminNews',AdminNews)
 Vue.component('v-fashion',FashionBanner)
 Vue.component('v-banner',Banner)
 Vue.component('v-adminBanner',AdminBanner)
+Vue.component('v-adminProducts',AdminProducts)
 
 import router from './router'
 

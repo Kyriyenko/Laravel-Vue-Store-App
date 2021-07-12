@@ -55,10 +55,12 @@
                     </div>
                 </div>
                 <div class="col-md-4 center-block mt-2">
-                    <i class="fas fa-shopping-basket"></i>
-                    <div id="cart" class="btn-group btn-block mtb_40">
-                        <button type="button" class="btn" data-target="#cart-dropdown" data-toggle="collapse" aria-expanded="true"><span id="shippingcart">Shopping cart</span></button>
-                    </div>
+                    <router-link to="/cart_page" class="p-2 link-secondary rout-link">
+                        <i class="fas fa-shopping-basket"></i>
+                        <div id="cart" class="btn-group btn-block mtb_40">
+                            <button type="button" class="btn" data-target="#cart-dropdown" data-toggle="collapse" aria-expanded="true"><span id="shippingcart">Shopping cart</span></button>
+                        </div>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -66,8 +68,19 @@
             <div class="nav-scroller py-1 mb-2">
                 <nav class="nav d-flex justify-content-between">
                     <router-link to="/" class="p-2 link-secondary rout-link">home</router-link>
-                    <router-link to="/" class="p-2 link-secondary rout-link">collection</router-link>
-                    <router-link to="/" class="p-2 link-secondary rout-link">shop</router-link>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle categories-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            COLLECTION
+                        </button>
+                        <ul class="dropdown-menu categories" aria-labelledby="dropdownMenuButton1">
+                            <div v-for="category in categories">
+                                <div class="category-item" v-on:click="setCategory(category.id)">
+                                        {{category.title}}
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
+                    <router-link to="/shop" class="p-2 link-secondary rout-link">shop</router-link>
                     <router-link to="/aboutUs" class="p-2 link-secondary rout-link">About us</router-link>
                     <router-link to="/contactUs" class="p-2 link-secondary rout-link">Contact us</router-link>
                     <router-link v-if="role==='guest'" to="/login" class="p-2 link-secondary rout-link">Login</router-link>
@@ -80,14 +93,18 @@
 </template>
 
 <script>
+
+
 export default {
     name: "Header",
     data(){
       return{
-        role:'guest'
+        role:'guest',
+        categories:[]
       }
     },
    created() {
+        this.getCategories()
         this.getUserStatus()
    },
     methods:{
@@ -111,7 +128,23 @@ export default {
                 })
                 .catch(error => console.log(error))
                 .finally()
+        },
+        getCategories(){
+            axios
+                .get('/getCategories')
+                .then(response => {
+                   console.log(response.data)
+                    this.categories=response.data
+                    console.log(this.categories)
+                })
+                .catch(error => console.log(error))
+                .finally()
+        },
+        setCategory(id){
+            sessionStorage.setItem('category',id);
+            window.location.href = '/category'
         }
+
     }
 }
 </script>
@@ -119,6 +152,30 @@ export default {
 <style scoped>
 *{
     color: #ffffff;
+}
+
+.categories-toggle{
+    border: none;
+    background-color: #424242;
+}
+
+
+.categories{
+    background-color: #424242;
+}
+
+.category-item{
+    background-color: #424242;
+    border-bottom: 1px dotted #010302;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: large;
+    padding: 10px;
+}
+
+.category-item:hover{
+    background-color: #333232;
+    color: #c4bdbd;
 }
 
 .fa-sign-out-alt{
@@ -207,6 +264,10 @@ export default {
 .maine-text{
     font-size: xxx-large;
     font-weight: 900;
+}
+
+.d-flex{
+    align-items: center;
 }
 
 

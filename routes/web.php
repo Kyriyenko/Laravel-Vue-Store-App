@@ -14,6 +14,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+
+
+Route::post('/updateProduct',[\App\Http\Controllers\ProductController::class,'updateProduct']);
+Route::post('/deleteProduct',[\App\Http\Controllers\ProductController::class,'deleteProduct']);
+
+Route::get('/getAllCategories',[\App\Http\Controllers\SubCategoryController::class,'getAllCategories']);
+
+Route::get('/getOneProduct/{productId}',[\App\Http\Controllers\ProductController::class,'getProduct']);
+Route::get('/getMax',[\App\Http\Controllers\ProductController::class,'getMaxPriceFirst']);
+Route::get('/getMin',[\App\Http\Controllers\ProductController::class,'getMinPriceFirst']);
+
+Route::get('/getAllProducts',[\App\Http\Controllers\ProductController::class,'getAllProducts']);
+Route::get('/orderProducts',[\App\Http\Controllers\OrderProductsController::class,'show']);
+
+Route::get('/getProducts/{id}',[\App\Http\Controllers\ProductController::class,'getCategoryProduct']);
+Route::get('/getCategories',[\App\Http\Controllers\CategoryController::class,'getCategories']);
+
 Route::get('/user/status',[\App\Http\Controllers\AuthController::class, 'getUserStatus']);
 Route::get('/user/logout',[\App\Http\Controllers\AuthController::class, 'logoutUser']);
 Route::get('/reviews',[\App\Http\Controllers\ReviewsController::class,'show']);

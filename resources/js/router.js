@@ -10,7 +10,10 @@ import ContactUs from './components/pages/Contactus'
 import Shop from './components/pages/Shop'
 import Login from './components/pages/Login'
 import Registration from './components/pages/Registration'
-import AdminPanel from "./components/pages/AdminPanel";
+import AdminPanel from "./components/pages/AdminPanel"
+import Categories from "./components/pages/Categories"
+import Product from "./components/pages/Product"
+import Cart_page from "./components/pages/Cart_page";
 
 const routes=[
     {
@@ -40,6 +43,18 @@ const routes=[
     {
         path: '/adminPanel',
         component:AdminPanel
+    },
+    {
+        path: '/category',
+        component: Categories
+    },
+    {
+        path: '/product',
+        component: Product
+    },
+    {
+        path: '/cart_page',
+        component: Cart_page
     }
 
 ];

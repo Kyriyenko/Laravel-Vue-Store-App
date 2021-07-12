@@ -5,7 +5,7 @@
         </div>
         <div class="card bg-dark text-white">
             <label>Banner link</label>
-           <input type="text" v-model="banner.link">
+           <input type="text">
             <label>Banner header</label>
             <input type="text" v-model="banner.description">
             <button v-on:click="updateBanner" type="button" class="btn btn-danger mt-2">UPDATE</button>
