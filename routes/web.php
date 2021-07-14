@@ -16,6 +16,27 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
+
+
+
+
+
+Route::post('/deleteSubCategory',[\App\Http\Controllers\SubCategoryController::class,'deleteSubCategory']);
+
+Route::post('/createSubCategory',[\App\Http\Controllers\SubCategoryController::class,'createSubCategory']);
+
+Route::post('/createProduct',[\App\Http\Controllers\ProductController::class,'createProduct']);
+
+Route::get('/getUserOrderId',[\App\Http\Controllers\OrderController::class,'getOrderId']);
+Route::post('/transaction',[\App\Http\Controllers\TransactionController::class,'transaction']);
+
+Route::post('/deleteCartItem',[\App\Http\Controllers\OrderController::class,'deleteCartItem']);
+
+Route::get('/getUserCart',[\App\Http\Controllers\OrderController::class,'getUserCart']);
+
+Route::post('/buyProduct',[\App\Http\Controllers\OrderController::class,'buyProduct']);
+
 Route::post('/updateProduct',[\App\Http\Controllers\ProductController::class,'updateProduct']);
 Route::post('/deleteProduct',[\App\Http\Controllers\ProductController::class,'deleteProduct']);
 

@@ -47,7 +47,7 @@
                         </div>
                         <div class="tab-pane fade" id="v-pills-products" role="tabpanel"
                              aria-labelledby="v-pills-products-tab">
-                            Categories
+                            <v-categoryManage></v-categoryManage>
                         </div>
                     </div>
                 </div>

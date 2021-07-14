@@ -10,25 +10,34 @@
                                 <td class="text-center">Image</td>
                                 <td class="text-left">Product Name</td>
                                 <td class="text-right">Total</td>
+                                <td class="text-right"></td>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr v-for="product in products">
                                 <td class="text-center">
                                     <a href="#">
                                         <img
                                             src="https://cdn.pixabay.com/photo/2013/07/11/15/30/male-watch-144648_960_720.jpg"
-                                            style="height: 80px"
+                                            style="height: 70px"
                                             class="img-fluid img">
                                     </a>
                                 </td>
-                                <td class="text-left">Watches</td>
-                                <td class="text-right">$254.00</td>
+                                <td class="text-left">{{ product.product_title }}</td>
+                                <td class="text-right">{{ product.price }}$</td>
+                                <td class="text-right">
+                                    <button type="button" class="btn btn-danger" v-on:click="deleteProduct(product.orders_id,product.product_id)">DELETE</button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </form>
+                <div v-if="transactionStatus">
+                    <div class="alert alert-success" role="alert">
+                        Transaction was successful
+                    </div>
+                </div>
                 <h3 class="mtb_10">What would you like to do next?</h3>
                 <p>Choose if you have a discount code or reward points you want to use or would like to estimate your
                     delivery cost.</p>
@@ -93,7 +102,8 @@
                             <tbody>
                             <tr>
                                 <td class="text-right"><strong>Sub-Total:</strong></td>
-                                <td class="text-right">$210.00</td>
+                                <td class="text-right">{{ totalPrice }}$</td>
+                                <td><button type="button" class="btn btn-warning" v-on:click="makePayment">Confirm</button></td>
                             </tr>
                             </tbody>
                         </table>
@@ -106,7 +116,69 @@
 
 <script>
 export default {
-    name: "Cart_page"
+    name: "Cart_page",
+    data() {
+        return {
+            products: [],
+            totalPrice: '',
+            transactionStatus:false,
+            orderId:''
+        }
+    },
+    created() {
+        this.getOrderId()
+        this.getProducts()
+    },
+    methods: {
+        getOrderId(){
+            axios
+                .get('/getUserOrderId')
+                .then(response => {
+                    this.orderId=response.data.orderId
+                })
+                .catch(error => console.log(error))
+                .finally()
+        },
+        getProducts() {
+            axios
+                .get('/getUserCart')
+                .then(response => {
+                    if(response.data.status===false){
+                        return;
+                    }
+                    if(response.data.status===true){
+                        this.products = response.data.orderProducts
+                        this.totalPrice = response.data.totalPrice
+                    }
+                })
+                .catch(error => console.log(error))
+                .finally()
+        },
+        deleteProduct(orderId,productId) {
+            axios
+                .post('/deleteCartItem',{orderId:orderId,productId:productId})
+                .then(response => {
+                    if(response.data.status===true){
+                        this.getProducts()
+                    }
+                })
+                .catch(error => console.log(error))
+                .finally()
+        },
+        makePayment(){
+            axios
+                .post('/transaction',{orderId:this.orderId})
+                .then(response => {
+                    if(response.data.status===true){
+                        this.products=[]
+                        this.transactionStatus=true
+                    }
+                })
+                .catch(error => console.log(error))
+                .finally()
+        }
+    }
+
 }
 </script>
 
@@ -117,11 +189,8 @@ export default {
     justify-content: center;
 }
 
-.collapsed{
+.collapsed {
     text-decoration: none;
     color: #ffffff;
 }
-
-
-
 </style>

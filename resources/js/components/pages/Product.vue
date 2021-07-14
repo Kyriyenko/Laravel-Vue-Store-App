@@ -13,14 +13,13 @@
                     <p class="card-text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
                     <div class="row">
                         <h6 class="card-text">PRICE:{{product.price}}$</h6>
-                        <button type="button" class="btn btn-danger">Add to Shopping Cart</button>
+                        <button type="button" class="btn btn-danger" v-on:click="buyProduct">Add to Shopping Cart</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 </div>
 </template>
 
@@ -42,13 +41,20 @@ export default {
             axios
                 .get(`/getOneProduct/${productId}`)
                 .then(response => {
-                    console.log(response.data)
                     this.product=response.data
-                    console.log(this.product)
                 })
                 .catch(error => console.log(error))
                 .finally()
-
+        },
+        buyProduct(){
+            let productId=sessionStorage.getItem('product_id')
+            axios
+                .post(`/buyProduct`,{product_id:productId})
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(error => console.log(error))
+                .finally()
         }
 
     }

@@ -10,10 +10,26 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
+    public function createProduct(Request $request)
+    {
+        $product = new  Product([
+            'title' => $request->title,
+            'img_link' => 'http/link/img',
+            'description' => $request->description,
+            'price' => $request->price,
+            'sub_category_id' => $request->categoryId,
+        ]);
+
+        $product->save();
+
+        return [
+            'status' => true,
+            'message' => 'product was created'
+        ];
+    }
 
     public function updateProduct(Request $request)
     {
-
         $product = Product::find($request->id);
         $product->title = $request->title;
         $product->description = $request->description;
@@ -26,17 +42,17 @@ class ProductController extends Controller
             'message' => 'product was updated',
             'record' => $product->toArray()
         ];
-
     }
 
     public function deleteProduct(Request $request)
     {
+        Product::find($request->id)->delete();
+
         return [
             'id' => $request->id,
             'success' => 'true',
             'message' => 'product was deleted',
         ];
-
     }
 
     public function getAllProducts()

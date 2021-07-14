@@ -12,6 +12,12 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'status',
+        'total_sum',
+        'user_id',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

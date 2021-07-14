@@ -14,6 +14,8 @@ import FashionBanner from './components/ banners/Fashion'
 import Banner from "./components/ banners/Banner"
 import AdminBanner from './components/adminParts/Banner'
 import AdminProducts from './components/adminParts/Products'
+import CreationProductPage from "./components/adminParts/CreationPage"
+import Category from "./components/adminParts/Category"
 
 Vue.component('v-header',Header)
 Vue.component('v-footer',Footer)
@@ -25,6 +27,8 @@ Vue.component('v-fashion',FashionBanner)
 Vue.component('v-banner',Banner)
 Vue.component('v-adminBanner',AdminBanner)
 Vue.component('v-adminProducts',AdminProducts)
+Vue.component('v-creationProduct',CreationProductPage)
+Vue.component('v-categoryManage',Category)
 
 import router from './router'
 
