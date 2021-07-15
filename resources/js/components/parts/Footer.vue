@@ -8,14 +8,16 @@
                             <div class="col-sm-6">
                                 <div class="news-head pull-left">
                                     <h2 class="text-header">Follow Our Updates !</h2>
-                                    <div class="new-desc">Be the First to know about our Fresh Arrivals and much more!</div>
+                                    <div class="new-desc">Be the First to know about our Fresh Arrivals and much more!
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="news-form pull-right">
-                                    <form  method="post">
+                                    <form method="post">
                                         <div class="form-group required form-sub">
-                                            <input name="email" id="email" placeholder="Enter Your Email" class="form-control input-lg" required="" type="email">
+                                            <input name="email" id="email" placeholder="Enter Your Email"
+                                                   class="form-control input-lg" required="" type="email">
                                             <button type="submit" class="btn btn-default btn-lg">Subscribe</button>
                                         </div>
                                     </form>
@@ -30,7 +32,7 @@
                                 <li><a href="#">About Us</a></li>
                                 <li><a href="#">Delivery Information</a></li>
                                 <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Terms  Conditions</a></li>
+                                <li><a href="#">Terms Conditions</a></li>
                                 <li><a href="#">Contact Us</a></li>
                             </ul>
                         </div>
@@ -111,30 +113,30 @@ export default {
 <style scoped>
 
 
-*{
+* {
     color: #919191;
 }
 
-.text-header{
+.text-header {
     text-transform: uppercase;
     color: #ffffff;
 }
 
-.form-sub{
+.form-sub {
     display: flex;
-    justify-content:center;
+    justify-content: center;
 }
 
-.links-row{
+.links-row {
     display: flex;
     justify-content: space-around;
 }
 
-li{
+li {
     list-style-type: none;
 }
 
-.container-footer-service{
+.container-footer-service {
     background-color: #424242;
 }
 
@@ -142,12 +144,11 @@ a {
     text-decoration: none;
 }
 
-.btn-default{
+.btn-default {
     background-color: #000000;
     color: #c8c8c8;
     text-transform: uppercase;
 }
-
 
 
 </style>

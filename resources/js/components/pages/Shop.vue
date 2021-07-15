@@ -19,11 +19,11 @@
                                     <div class="card-body">
                                         <h4 class="card-text
                                          card-title-text"
-                                         v-on:click="relocateToProduct(product.id)"
+                                            v-on:click="relocateToProduct(product.id)"
                                         >
                                             {{ product.title }}
                                         </h4>
-                                        <p class="card-text">{{  getPrice(product.price )}}</p>
+                                        <p class="card-text">{{ getPrice(product.price) }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -37,6 +37,7 @@
 
 <script>
 import router from "../../router";
+import userService from "../../services/userService";
 
 export default {
     name: "Shop",
@@ -49,46 +50,36 @@ export default {
     created() {
         this.getAllProducts()
     },
-    methods:{
-        getAllProducts(){
-            axios
-                .get(`/getAllProducts`)
-                .then(response => {
-                    console.log(response.data)
-                    this.products = response.data
-                })
+    methods: {
+        getAllProducts() {
+            userService.getAllProducts().then(response => {
+                this.products = response.data
+            })
                 .catch(error => console.log(error))
                 .finally()
         },
-        getMinPriceFirst(){
-            axios
-                .get(`/getMin`)
-                .then(response => {
-                    console.log(response.data)
-                    this.products = response.data
-                })
+        getMinPriceFirst() {
+            userService.getMinPriceFirst().then(response => {
+                this.products = response.data
+            })
                 .catch(error => console.log(error))
                 .finally()
         },
-        getMaxPriceFirst(){
-            axios
-                .get(`/getMax`)
-                .then(response => {
-                    console.log(response.data)
-                    this.products = response.data
-                })
+        getMaxPriceFirst() {
+            userService.getMaxPriceFirst().then(response => {
+                this.products = response.data
+            })
                 .catch(error => console.log(error))
                 .finally()
         },
-        relocateToProduct(productId){
-            sessionStorage.setItem('product_id',productId)
+        relocateToProduct(productId) {
+            sessionStorage.setItem('product_id', productId)
             router.replace('/product')
         },
-        getPrice(price){
-            return price+'$';
+        getPrice(price) {
+            return price + '$';
         }
     }
-
 }
 </script>
 
@@ -102,34 +93,34 @@ export default {
     background-color: #1b1e21;
 }
 
-.card-body{
+.card-body {
     background-color: #1b1e21;
 }
 
-.nav-link{
- color:#fa4251;
- font-size: large;
- border-bottom: 1px dotted #fa4251;
- text-transform: uppercase;
- font-family: sans-serif;
+.nav-link {
+    color: #fa4251;
+    font-size: large;
+    border-bottom: 1px dotted #fa4251;
+    text-transform: uppercase;
+    font-family: sans-serif;
 }
 
-.nav-link:hover{
+.nav-link:hover {
     color: #8d3239;
     border-bottom: 1px dotted #8d3239;
 }
 
-.card-title-text{
+.card-title-text {
     font-family: 'Nunito', sans-serif;
     color: #b0b0b0;
 }
 
-.card-title-text:hover{
+.card-title-text:hover {
     color: #8f8f8f;
     cursor: pointer;
 }
 
-h4{
+h4 {
     text-transform: uppercase;
 }
 

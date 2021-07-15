@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function createUser(Request $request){
+    public function createUser(Request $request)
+    {
         $IsUniqueUserExists = User::where('name', '=', $request->name)->first();
         if ($IsUniqueUserExists) {
             return [
@@ -54,8 +55,8 @@ class AuthController extends Controller
         ];
     }
 
-
-    public function getUserStatus(){
+    public function getUserStatus()
+    {
         if (Auth::check()) {
             $user = Auth::user();
             return $user['role'];
@@ -63,19 +64,21 @@ class AuthController extends Controller
         return 'guest';
     }
 
-    public function logoutUser(){
+    public function logoutUser()
+    {
         if (Auth::check()) {
             Auth::logout();
         }
 
         return [
-            'role'=>'guest',
-            'status'=>true
+            'role' => 'guest',
+            'status' => true
         ];
     }
 
 
-    public function loginUser(Request $request){
+    public function loginUser(Request $request)
+    {
         $visitor = [
             'name' => $request->name,
             'password' => $request->password

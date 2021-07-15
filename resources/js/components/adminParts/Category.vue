@@ -30,16 +30,12 @@
             <tr>
                 <th scope="col">Category</th>
                 <th scope="col">Collection</th>
-                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="category in categories">
                 <td>{{ category.category }}</td>
                 <td>{{ category.collection }}</td>
-                <td>
-                    <button v-on:click="deleteSubCategory(category.id)" type="button" class="btn btn-danger">DELETE</button>
-                </td>
             </tr>
             </tbody>
         </table>
@@ -47,6 +43,7 @@
 </template>
 
 <script>
+import adminService from "../../services/adminService";
 export default {
     name: "Category",
     data() {
@@ -62,46 +59,28 @@ export default {
         this.getCollection()
     },
     methods: {
-        deleteSubCategory(id){
-            axios
-                .post(`/deleteSubCategory`, {sub_category_id: id})
-                .then(response => {
-                    console.log(response)
-                    if(response.data.status===true){
-                        this.getCategories()
-                    }
-                })
-                .catch(error => console.log(error))
-                .finally()
-        },
         getCategories() {
-            axios
-                .get(`/getAllCategories`)
-                .then(response => {
-                    this.categories = response.data
-                })
+            adminService.getCategories().then(response => {
+                this.categories = response.data
+            })
                 .catch(error => console.log(error))
                 .finally()
         },
         getCollection() {
-            axios
-                .get('/getCategories')
-                .then(response => {
-                    this.collections = response.data
-                })
+            adminService.getCollection().then(response => {
+                this.collections = response.data
+            })
                 .catch(error => console.log(error))
                 .finally()
         },
         createSubCategory() {
-            axios
-                .post(`/createSubCategory`, {category_id: this.collectionId, title: this.title})
-                .then(response => {
-                    if(response.data.status===true){
-                        this.title=''
-                        this.collectionId=''
-                        this.getCategories()
-                    }
-                })
+            adminService.createSubCategory({category_id: this.collectionId, title: this.title}).then(response => {
+                if (response.data.status === true) {
+                    this.title = ''
+                    this.collectionId = ''
+                    this.getCategories()
+                }
+            })
                 .catch(error => console.log(error))
                 .finally()
         }

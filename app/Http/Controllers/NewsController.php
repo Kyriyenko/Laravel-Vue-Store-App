@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class NewsController extends Controller
 {
@@ -21,6 +22,7 @@ class NewsController extends Controller
     }
 
     public function addNews(Request $request){
+
         $news = new  News([
             'title' => $request->title,
             'description' => $request->body,

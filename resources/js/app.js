@@ -12,10 +12,10 @@ import News from './components/parts/News'
 import AdminNews from './components/adminParts/News'
 import FashionBanner from './components/ banners/Fashion'
 import Banner from "./components/ banners/Banner"
-import AdminBanner from './components/adminParts/Banner'
 import AdminProducts from './components/adminParts/Products'
-import CreationProductPage from "./components/adminParts/CreationPage"
+import CreationProductPage from "./components/adminParts/CreationProductPage"
 import Category from "./components/adminParts/Category"
+import FeaturedProducts from "./components/parts/FeaturedProducts";
 
 Vue.component('v-header',Header)
 Vue.component('v-footer',Footer)
@@ -25,10 +25,10 @@ Vue.component('v-news',News)
 Vue.component('v-adminNews',AdminNews)
 Vue.component('v-fashion',FashionBanner)
 Vue.component('v-banner',Banner)
-Vue.component('v-adminBanner',AdminBanner)
 Vue.component('v-adminProducts',AdminProducts)
 Vue.component('v-creationProduct',CreationProductPage)
 Vue.component('v-categoryManage',Category)
+Vue.component('v-featuredProducts',FeaturedProducts)
 
 import router from './router'
 

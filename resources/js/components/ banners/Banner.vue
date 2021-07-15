@@ -2,10 +2,7 @@
 <div>
     <div class="card bg-dark text-white">
         <a href="/">
-            <img :src="require('../../../../resources/images/left1.jpg').default"class="card-img" alt="...">
-            <div class="card-img-overlay">
-                <h5 style="color:#cac065; text-transform: uppercase" class="card-title">{{banner.description}}</h5>
-            </div>
+            <img src="images/left1.jpg" class="card-img" alt="banner">
         </a>
     </div>
 </div>
@@ -13,27 +10,7 @@
 
 <script>
 export default {
-    name: "Banner",
-    data(){
-        return{
-            banner:{}
-        }
-    },
-    created() {
-        this.getBanner()
-    },
-    methods:{
-        getBanner(){
-                axios
-                    .get('/banner')
-                    .then(response => {
-                        this.banner=response.data
-                    })
-                    .catch(error => console.log(error))
-                    .finally()
-        }
-    }
-
+    name: "Banner"
 }
 </script>
 

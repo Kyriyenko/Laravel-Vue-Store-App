@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div v-if="isUpdated" class="alert alert-success" role="alert">
+            {{serverMessage}}
+        </div>
         <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
@@ -48,9 +51,8 @@
     </div>
 </template>
 
-
 <script>
-
+import adminService from "../../services/adminService";
 
 export default {
     name: "Products",
@@ -60,6 +62,8 @@ export default {
             category: '',
             categories: [],
             isDeletedMode: false,
+            serverMessage:'',
+            isUpdated:false,
         }
     },
     created() {
@@ -67,30 +71,30 @@ export default {
     },
     methods: {
         updateProductInfo(product) {
-            axios
-                .post(`/updateProduct`, product)
-                .then(response => {
-                    console.log(response.data)
-                })
+            this.isUpdated=false
+            adminService.updateProductInfo(product).then(response => {
+                if (response.data.status === true) {
+                    this.isUpdated=true
+                    this.serverMessage=response.data.message
+                    this.getAllProducts()
+                }
+            })
                 .catch(error => console.log(error))
                 .finally()
         },
         deleteProduct(id) {
-            axios
-                .post(`/deleteProduct`, {id: id})
-                .then(response => {
-                    console.log(response.data)
-                })
+            adminService.deleteProduct({id: id}).then(response => {
+                if (response.data.success === true) {
+                    this.getAllProducts()
+                }
+            })
                 .catch(error => console.log(error))
                 .finally()
         },
         getAllProducts() {
-            axios
-                .get(`/getAllProducts`)
-                .then(response => {
-                    console.log(response.data)
-                    this.products = response.data
-                })
+            adminService.getAllProductsForUpdate().then(response => {
+                this.products = response.data
+            })
                 .catch(error => console.log(error))
                 .finally()
         },
@@ -122,23 +126,13 @@ ul {
     background-color: #000000;
 }
 
-.btn-delete {
-    background-color: #424242;
-}
-
-.category-item {
-    border-bottom: 1px solid #ffffff;
-    cursor: pointer;
-    text-transform: uppercase;
-}
-
-.category-item:hover {
-    background-color: #424242;
-}
-
 .nav-link {
     color: #ffffff;
 }
 
+.btn-delete{
+    background-color: #424242;
+    color: #ffffff;
+}
 
 </style>

@@ -26,7 +26,9 @@
                                 <td class="text-left">{{ product.product_title }}</td>
                                 <td class="text-right">{{ product.price }}$</td>
                                 <td class="text-right">
-                                    <button type="button" class="btn btn-danger" v-on:click="deleteProduct(product.orders_id,product.product_id)">DELETE</button>
+                                    <button type="button" class="btn btn-danger"
+                                            v-on:click="deleteProduct(product.orders_id,product.product_id)">DELETE
+                                    </button>
                                 </td>
                             </tr>
                             </tbody>
@@ -103,7 +105,10 @@
                             <tr>
                                 <td class="text-right"><strong>Sub-Total:</strong></td>
                                 <td class="text-right">{{ totalPrice }}$</td>
-                                <td><button type="button" class="btn btn-warning" v-on:click="makePayment">Confirm</button></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning" v-on:click="makePayment">Confirm
+                                    </button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -115,14 +120,16 @@
 </template>
 
 <script>
+import transactionService from "../../services/transactionService";
+
 export default {
     name: "Cart_page",
     data() {
         return {
             products: [],
             totalPrice: '',
-            transactionStatus:false,
-            orderId:''
+            transactionStatus: false,
+            orderId: ''
         }
     },
     created() {
@@ -130,50 +137,43 @@ export default {
         this.getProducts()
     },
     methods: {
-        getOrderId(){
-            axios
-                .get('/getUserOrderId')
-                .then(response => {
-                    this.orderId=response.data.orderId
-                })
+        getOrderId() {
+            transactionService.getOrderId().then(response => {
+                this.orderId = response.data.orderId
+            })
                 .catch(error => console.log(error))
                 .finally()
         },
         getProducts() {
-            axios
-                .get('/getUserCart')
-                .then(response => {
-                    if(response.data.status===false){
-                        return;
-                    }
-                    if(response.data.status===true){
-                        this.products = response.data.orderProducts
-                        this.totalPrice = response.data.totalPrice
-                    }
-                })
+            transactionService.getProducts().then(response => {
+                if (response.data.status === false) {
+                    return;
+                }
+                if (response.data.status === true) {
+                    this.products = response.data.orderProducts
+                    this.totalPrice = response.data.totalPrice
+                }
+            })
                 .catch(error => console.log(error))
                 .finally()
         },
-        deleteProduct(orderId,productId) {
-            axios
-                .post('/deleteCartItem',{orderId:orderId,productId:productId})
-                .then(response => {
-                    if(response.data.status===true){
-                        this.getProducts()
-                    }
-                })
+        deleteProduct(orderId, productId) {
+            transactionService.deleteProduct({orderId: orderId, productId: productId}).then(response => {
+                if (response.data.status === true) {
+                    this.getProducts()
+                }
+            })
                 .catch(error => console.log(error))
                 .finally()
         },
-        makePayment(){
-            axios
-                .post('/transaction',{orderId:this.orderId})
-                .then(response => {
-                    if(response.data.status===true){
-                        this.products=[]
-                        this.transactionStatus=true
-                    }
-                })
+        makePayment() {
+            transactionService.makePayment({orderId: this.orderId}).then(response => {
+                if (response.data.status === true) {
+                    this.products = []
+                    this.transactionStatus = true
+                    this.totalPrice=''
+                }
+            })
                 .catch(error => console.log(error))
                 .finally()
         }

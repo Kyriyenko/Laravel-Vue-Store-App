@@ -8,7 +8,7 @@
                <div  v-for="card in news" class="col-md-6" >
                    <div>
                        <div class="card">
-                           <img src="https://cdn.pixabay.com/photo/2015/07/02/10/29/smartwatch-828786_960_720.jpg" class="card-img-top" alt="...">
+                           <img src="https://cdn.pixabay.com/photo/2014/07/31/23/00/wristwatch-407096_960_720.jpg" class="card-img-top" alt="...">
                            <div class="card-body">
                                <h2 class="card-text">{{card.title}}</h2>
                                <p class="card-text">{{card.description}}</p>
@@ -48,8 +48,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 
 p{
     color: #6c6c6c;

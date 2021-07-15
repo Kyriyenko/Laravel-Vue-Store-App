@@ -1,85 +1,96 @@
 <template>
-<div>
-<div class="container">
-    <div class="card mb-3" >
-        <div class="row g-1">
-            <div class="col-md-4">
-                <img src="https://cdn.pixabay.com/photo/2017/03/03/04/31/clock-2113254_960_720.jpg" style="height: 235px; width: 100%" class="img-fluid" alt="...">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.title }}</h5>
-                    <p>{{ product.description }}</p>
-                    <p class="card-text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
-                    <div class="row">
-                        <h6 class="card-text">PRICE:{{product.price}}$</h6>
-                        <button type="button" class="btn btn-danger" v-on:click="buyProduct">Add to Shopping Cart</button>
+    <div>
+        <div class="container">
+            <div class="card mb-3">
+                <div class="row g-1">
+                    <div class="col-md-4">
+                        <img src="https://cdn.pixabay.com/photo/2017/03/03/04/31/clock-2113254_960_720.jpg"
+                             style="height: 235px; width: 100%" class="img-fluid" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.title }}</h5>
+                            <p>{{ product.description }}</p>
+                            <p class="card-text">It is a long established fact that a reader will be distracted by the
+                                readable content of a page when looking at its layout. The point of using Lorem Ipsum is
+                                that it has a more-or-less normal distribution of letters,</p>
+                            <div class="row">
+                                <h6 class="card-text">PRICE:{{ product.price }}$</h6>
+                                <button type="button" class="btn btn-danger mb-3" v-on:click="buyProduct">
+                                    Add to Shopping Cart
+                                </button>
+                                <div v-if="isAddToCart" class="alert alert-success mt-3" role="alert">
+                                    {{ serverMessage }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-</div>
 </template>
 
 <script>
+import userService from "../../services/userService";
+
 export default {
     name: "Product",
-    data(){
-        return{
-            product:[],
-            productId:''
+    data() {
+        return {
+            product: [],
+            productId: '',
+            isAddToCart:false,
+            serverMessage:''
         }
     },
     created() {
         this.getProduct()
     },
-    methods:{
-        getProduct(){
-            let productId=sessionStorage.getItem('product_id')
-            axios
-                .get(`/getOneProduct/${productId}`)
-                .then(response => {
-                    this.product=response.data
-                })
+    methods: {
+        getProduct() {
+            let productId = sessionStorage.getItem('product_id')
+            userService.getOneProduct(productId).then(response => {
+                this.product = response.data
+            })
                 .catch(error => console.log(error))
                 .finally()
         },
-        buyProduct(){
-            let productId=sessionStorage.getItem('product_id')
-            axios
-                .post(`/buyProduct`,{product_id:productId})
-                .then(response => {
-                    console.log(response)
-                })
+        buyProduct() {
+            this.isAddToCart=false
+            let productId = sessionStorage.getItem('product_id')
+            userService.buyProduct({product_id: productId}).then(response => {
+                if(response.data.status===true){
+                    this.isAddToCart=true
+                    this.serverMessage=response.data.message
+                }
+            })
                 .catch(error => console.log(error))
                 .finally()
         }
-
     }
-
 }
 </script>
 
 <style scoped>
 
-*{
+* {
     font-family: sans-serif;
 }
 
-.col-md-8{
+.col-md-8 {
     background-color: #424242;
 }
 
-.card-title{
+.card-title {
     text-transform: uppercase;
 }
-p{
+
+p {
     color: #5e646a;
 }
 
-.btn-danger{
+.btn-danger {
     background-color: #ff4352;
 }
 

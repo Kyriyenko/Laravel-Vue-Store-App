@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="container">
-        <img :src="require('../../../../resources/images/sub5.jpg').default" class="img-fluid" alt="Logo">
+        <img src="images/sub5.jpg" class="img-fluid" alt="Logo">
     </div>
 </div>
 </template>

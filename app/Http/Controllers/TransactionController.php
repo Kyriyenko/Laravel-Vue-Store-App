@@ -7,7 +7,6 @@ use App\Models\OrderProduct;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
@@ -22,17 +21,18 @@ class TransactionController extends Controller
             ->where('status', '=', 0)
             ->update(['status' => '1']);
 
+
         $transaction = new  Transaction([
             'status' => 1,
-            'mode' =>'cart',
+            'mode' => 'cart',
             'order_id' => $request->orderId,
         ]);
 
         $transaction->save();
 
-        return[
-            'status'=>true,
-            'message'=>'transaction was successful'
+        return [
+            'status' => true,
+            'message' => 'transaction was successful'
         ];
 
     }

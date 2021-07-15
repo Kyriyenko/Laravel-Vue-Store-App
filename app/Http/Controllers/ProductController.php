@@ -6,10 +6,17 @@ use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 
 class ProductController extends Controller
 {
+
+    public function getFeaturedProducts()
+    {
+        return Product::latest()->take(3)->get();
+    }
+
     public function createProduct(Request $request)
     {
         $product = new  Product([
@@ -30,6 +37,20 @@ class ProductController extends Controller
 
     public function updateProduct(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'description' => 'required',
+            'price' => 'required',
+            'sub_category_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'status' => false,
+                'errors' => $validator->messages()
+            ];
+        }
+
         $product = Product::find($request->id);
         $product->title = $request->title;
         $product->description = $request->description;
