@@ -90,7 +90,8 @@
                     <router-link to="/shop" class="p-2 link-secondary rout-link">shop</router-link>
                     <router-link to="/aboutUs" class="p-2 link-secondary rout-link">About us</router-link>
                     <router-link to="/contactUs" class="p-2 link-secondary rout-link">Contact us</router-link>
-                    <router-link v-if="role==='guest'" to="/login" class="p-2 link-secondary rout-link">Login
+                    <router-link v-if="role==='guest'" to="/login" class="p-2 link-secondary rout-link">
+                        Login
                     </router-link>
                     <router-link v-if="role==='guest'" to="/registration" class="p-2 link-secondary rout-link">
                         Registration
@@ -145,7 +146,6 @@ export default {
             sessionStorage.setItem('category', id);
             window.location.href = '/category'
         }
-
     }
 }
 </script>
@@ -159,7 +159,6 @@ export default {
     border: none;
     background-color: #424242;
 }
-
 
 .categories {
     background-color: #424242;

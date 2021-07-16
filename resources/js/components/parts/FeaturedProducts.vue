@@ -42,7 +42,7 @@
                                 </div>
                                 <h6 data-name="product_name" class="product-name">
                                     <a href="#" title="Casual Shirt With Ruffle Hem">
-                                       {{product.title}}
+                                        {{ product.title }}
                                     </a>
                                 </h6>
                                 <span class="price">
@@ -50,7 +50,7 @@
                                         <span class="currencySymbol">
                                             $
                                         </span>
-                                        {{product.price}}
+                                        {{ product.price }}
                                     </span>
                                  </span>
                             </div>
@@ -64,26 +64,25 @@
 
 <script>
 import userService from "../../services/userService";
+
 export default {
     name: "FeaturedProducts",
-    data(){
-        return{
-            products:[]
+    data() {
+        return {
+            products: []
         }
     },
     created() {
         this.getFeaturedProducts()
     },
-    methods:{
+    methods: {
         getFeaturedProducts() {
             userService.getFeaturedProducts().then(response => {
-               this.products=response.data
+                this.products = response.data
             })
                 .catch(error => console.log(error))
                 .finally()
         },
-
-
     }
 }
 </script>
@@ -94,7 +93,7 @@ export default {
     border-bottom: 2px solid #424242;
 }
 
-a{
+a {
     text-decoration: none;
     color: #9e9e9e;
 }

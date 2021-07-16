@@ -1,23 +1,30 @@
 <template>
     <div>
         <div class="container">
-            <div id="carouselExampleCaptions" class="carousel slide " data-bs-ride="carousel">
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
-                            class="active carousel-btn" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                            aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                            class="carousel-btn" aria-label="Slide 2"></button>
+                            class="second-slide" aria-label="Slide 2"></button>
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img
-                            src="/images/main_banner1.jpg"
-                            class="img-fluid" alt="Logo">
+                        <img src="http://html.lionode.com/darklook/images/blog/blog_img_04.jpg" class="d-block w-100"
+                             alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5 class="mb-3 ">POPULAR WATCHES FOR BEST MEN'S</h5>
+                            <button type="button" class="btn btn-danger mb-5">SHOP NOW</button>
+                        </div>
                     </div>
                     <div class="carousel-item">
-                        <img
-                            src="/images/main_banner2.jpg"
-                            class="img-fluid" alt="Logo">
+                        <img src="http://html.lionode.com/darklook/images/blog/blog_img_04.jpg" class="d-block w-100"
+                             alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5 class="mb-3">DISCOUNT <span class="red-color">UPTO 90% OFF</span></h5>
+                            <h3>BUY WATCHES</h3>
+                            <button type="button" class="btn btn-danger mb-5">SHOP NOW</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -62,6 +69,9 @@
             <div class="mt-5">
                 <v-news></v-news>
             </div>
+            <div class="mt-5">
+                <v-brand_logo></v-brand_logo>
+            </div>
         </div>
     </div>
 </template>
@@ -93,7 +103,7 @@ i {
     font-size: xx-large;
 }
 
-.carousel-indicators .carousel-btn {
+.carousel-indicators button {
     display: inline-block;
     width: 12px;
     height: 12px;
@@ -117,6 +127,24 @@ i {
     text-align: center;
     outline: none;
     text-decoration: none;
+}
+
+.btn-danger {
+    background-color: #fb4250;
+    width: 240px;
+}
+
+h5 {
+    font-size: xx-large;
+}
+
+h3{
+    font-size: xxx-large;
+    font-weight: bold;
+}
+
+.red-color{
+    color: #fa4251;
 }
 
 </style>

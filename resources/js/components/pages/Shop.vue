@@ -11,19 +11,50 @@
                 </div>
                 <div class="col-md-9">
                     <div class="row">
-                        <div v-for="product in products" class="col-md-4 mt-2 mb-2">
-                            <div>
-                                <div class="card">
-                                    <img src="https://cdn.pixabay.com/photo/2017/03/03/04/31/clock-2113254_960_720.jpg"
-                                         class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h4 class="card-text
-                                         card-title-text"
-                                            v-on:click="relocateToProduct(product.id)"
-                                        >
-                                            {{ product.title }}
-                                        </h4>
-                                        <p class="card-text">{{ getPrice(product.price) }}</p>
+                        <div v-for="product in products" class="col-md-4">
+                            <div class="item">
+                                <div class="product-thumb">
+                                    <div class="image product-imageblock">
+                                            <img
+                                                style="height: 340px"
+                                                src="http://html.lionode.com/darklook/images/product/product9-1.jpg"
+                                                class="img-fluid" alt="Logo">
+                                    </div>
+                                    <div class="caption product-detail text-center">
+                                        <div class="rating">
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                    </span>
+                                            <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                    </span>
+                                            <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                    </span>
+                                            <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                    </span>
+                                            <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x last-star"></i>
+                                        <i class="fa fa-star fa-stack-x last-star"></i>
+                                    </span>
+                                        </div>
+                                            <div  class="title-link mt-2" v-on:click="relocateToProduct(product.id)"
+                                               title="Casual Shirt With Ruffle Hem">
+                                                {{ product.title }}
+                                            </div>
+                                        <span class="price mt-1">
+                                    <span class="amount">
+                                        <span class="currencySymbol">
+                                            $
+                                        </span>
+                                        {{ product.price }}
+                                    </span>
+                                 </span>
                                     </div>
                                 </div>
                             </div>
@@ -89,12 +120,9 @@ export default {
     display: flex;
 }
 
-.card {
-    background-color: #1b1e21;
-}
-
-.card-body {
-    background-color: #1b1e21;
+.title-link{
+    cursor: pointer;
+    color: #9e9e9e;
 }
 
 .nav-link {
@@ -110,18 +138,21 @@ export default {
     border-bottom: 1px dotted #8d3239;
 }
 
-.card-title-text {
-    font-family: 'Nunito', sans-serif;
-    color: #b0b0b0;
-}
-
-.card-title-text:hover {
-    color: #8f8f8f;
-    cursor: pointer;
+.product-imageblock{
+    display: flex;
+    justify-content: center;
 }
 
 h4 {
     text-transform: uppercase;
+}
+
+i{
+    color: #fa4251;
+}
+
+.last-star{
+    color: #ffffff;
 }
 
 

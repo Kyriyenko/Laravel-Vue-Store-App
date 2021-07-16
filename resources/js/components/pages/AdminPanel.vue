@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="container">
+        <div v-if="isAvailable" class="container">
             <div class="row">
                 <div class="col-md-4">
                     <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
@@ -49,11 +49,31 @@
 </template>
 
 <script>
+import authService from "../../services/authService";
+
 export default {
     name: "AdminPanel",
     data() {
-        return {}
+        return {
+            isAvailable: false
+        }
     },
+    created() {
+        this.getUserStatus()
+    },
+    methods: {
+        getUserStatus() {
+            authService.getUserStatus().then(response => {
+                if (response.data === 'admin') {
+                    this.isAvailable = true
+                } else {
+                    window.location.replace('/');
+                }
+            })
+                .catch(error => console.log(error))
+                .finally()
+        }
+    }
 }
 </script>
 

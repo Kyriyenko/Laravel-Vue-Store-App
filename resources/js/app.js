@@ -15,7 +15,8 @@ import Banner from "./components/ banners/Banner"
 import AdminProducts from './components/adminParts/Products'
 import CreationProductPage from "./components/adminParts/CreationProductPage"
 import Category from "./components/adminParts/Category"
-import FeaturedProducts from "./components/parts/FeaturedProducts";
+import FeaturedProducts from "./components/parts/FeaturedProducts"
+import Brand_logo from "./components/parts/Brand_logo";
 
 Vue.component('v-header',Header)
 Vue.component('v-footer',Footer)
@@ -29,6 +30,7 @@ Vue.component('v-adminProducts',AdminProducts)
 Vue.component('v-creationProduct',CreationProductPage)
 Vue.component('v-categoryManage',Category)
 Vue.component('v-featuredProducts',FeaturedProducts)
+Vue.component('v-brand_logo',Brand_logo)
 
 import router from './router'
 

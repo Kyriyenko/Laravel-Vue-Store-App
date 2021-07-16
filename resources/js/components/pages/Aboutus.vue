@@ -9,7 +9,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <figure>
-                                <img src="https://cdn.pixabay.com/photo/2019/03/18/06/46/cyber-4062449_960_720.jpg"
+                                <img class="img img-fluid" src="http://html.lionode.com/darklook/images/about-page-gaando.jpg"
                                      alt="#">
                             </figure>
                         </div>

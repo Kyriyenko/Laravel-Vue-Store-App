@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div class="container">
+        <div v-if="isAvailable" class="container">
             <div class="col-sm-8 col-lg-9 mtb_20">
-                <form enctype="multipart/form-data" method="post" action="#">
+                <form>
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
@@ -121,6 +121,8 @@
 
 <script>
 import transactionService from "../../services/transactionService";
+import authService from "../../services/authService";
+import router from "../../router";
 
 export default {
     name: "Cart_page",
@@ -129,14 +131,27 @@ export default {
             products: [],
             totalPrice: '',
             transactionStatus: false,
-            orderId: ''
+            orderId: '',
+            isAvailable: false
         }
     },
     created() {
+        this.getUserStatus()
         this.getOrderId()
         this.getProducts()
     },
     methods: {
+        getUserStatus() {
+            authService.getUserStatus().then(response => {
+                if (response.data === 'admin' || response.data === 'user') {
+                    this.isAvailable = true
+                } else {
+                  router.replace('/login')
+                }
+            })
+                .catch(error => console.log(error))
+                .finally()
+        },
         getOrderId() {
             transactionService.getOrderId().then(response => {
                 this.orderId = response.data.orderId
@@ -167,11 +182,15 @@ export default {
                 .finally()
         },
         makePayment() {
+            if(!Number.isInteger(this.orderId)) {
+                router.replace('/shop')
+                return;
+            }
             transactionService.makePayment({orderId: this.orderId}).then(response => {
                 if (response.data.status === true) {
                     this.products = []
                     this.transactionStatus = true
-                    this.totalPrice=''
+                    this.totalPrice = ''
                 }
             })
                 .catch(error => console.log(error))

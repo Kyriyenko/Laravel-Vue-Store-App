@@ -101,12 +101,10 @@ class ProductController extends Controller
 
     public function getCategoryProduct($requestId)
     {
-        $product = Product::select("*")
-            ->whereIn('sub_category_id', (
+        $product = Product::whereIn('sub_category_id', (
             SubCategory::select("id")
                 ->where('category_id', '=', $requestId)
             ))->get();
-
 
         return $product;
     }
